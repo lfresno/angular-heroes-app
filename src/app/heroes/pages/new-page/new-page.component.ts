@@ -10,6 +10,7 @@ export class NewPageComponent {
   public publishers = [
     {id: 'DC Comics', desc:'DC - Comics'},
     {id: 'Marvel Comics', desc:'Marvel - Comics'},
+    {id: 'Otro', desc:'Otro'},
   ];
 
 }

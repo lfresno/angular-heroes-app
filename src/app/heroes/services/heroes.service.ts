@@ -33,4 +33,30 @@ export class HeroesService {
     return this.http.get<Hero[]>( ` ${ this.baseUrl }/heroes?q=${ query }&_limit=6 ` );  //la forma de esta petición se puede comprobar  con postman
   }
 
+
+  //OPERACIONES CRUD
+  addHero(hero:Hero): Observable<Hero> {
+
+    //posteamos el objeto que mandamos en el endpoint correspondiente
+    return this.http.post<Hero>(`${ this.baseUrl }/heroes`, hero);
+  }
+
+  updateHero( hero:Hero ): Observable<Hero> {
+
+    if(!hero.id) throw Error('Hero id is required');
+
+    //usamos patch porque solo queremos actualizar partes del registro
+    return this.http.patch<Hero>(`${ this.baseUrl }/heroes`, hero);
+  }
+
+
+  //TERMINAR ESTO
+  // deleteHeroById( hero:Hero ): Observable<> {
+
+  //   if(!hero.id) throw Error('Hero id is required');
+
+  //   //usamos patch porque solo queremos actualizar partes del registro
+  //   return this.http.patch<Hero>(`${ this.baseUrl }/heroes`, hero);
+  // }
+
 }
