@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { Hero } from '../interfaces/hero.interface';
 import { environments } from '../../../environments/environments';
 
@@ -46,17 +46,20 @@ export class HeroesService {
     if(!hero.id) throw Error('Hero id is required');
 
     //usamos patch porque solo queremos actualizar partes del registro
-    return this.http.patch<Hero>(`${ this.baseUrl }/heroes`, hero);
+    return this.http.patch<Hero>(`${ this.baseUrl }/heroes/${ hero.id }`, hero);
   }
 
 
-  //TERMINAR ESTO
-  // deleteHeroById( hero:Hero ): Observable<> {
+  //La operación delete devuelve error 404 si no se encuentra el héroe o un bool si lo consigue borrar
+  deleteHeroById( id : string ): Observable<boolean> {
 
-  //   if(!hero.id) throw Error('Hero id is required');
+    return this.http.delete(`${ this.baseUrl }/heroes/${ id }`)
+      .pipe(
 
-  //   //usamos patch porque solo queremos actualizar partes del registro
-  //   return this.http.patch<Hero>(`${ this.baseUrl }/heroes`, hero);
-  // }
+        map( resp => true),  //si no entra en el error, llegará aquí y devolverá true
+        catchError( err => of(false)) //aprovechamos el valor del error para devolver un false
+
+      );
+  }
 
 }

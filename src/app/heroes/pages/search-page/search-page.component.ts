@@ -12,6 +12,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 export class SearchPageComponent {
 
   //si queremos usar un formulario reactivo, hay que importar su móduolo ReactiveFormsModule (en heroes module)
+  //esto es un input reactivo. Esto le permite tener algunos métodos
   public searchInput = new FormControl('');
 
   public heroes: Hero[] = [];
